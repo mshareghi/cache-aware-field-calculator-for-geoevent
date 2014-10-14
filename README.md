@@ -3,8 +3,8 @@
 ArcGIS GeoEvent Cache Aware Field Calculator Processor
 
 
-This custom processor is similar to the GeoEvent Field Calculator and can access an in-memory cache that stores 
-previous GeoEvents for each track. For example, given the "Speed" field on the input GeoEvent Definition, one can compute the value of "IsMoving" field by comparing the current "Speed" value with the previous one using the syntax below:
+This custom processor is similar to the GeoEvent Field Calculator and can access an in-memory cache that stores previous GeoEvents for each track. 
+For example, given the "Speed" field on the input GeoEvent Definition, one can compute the value of "IsMoving" field by comparing the current "Speed" value with the previous one using the syntax below:
 
 Expression: previousGeoEvent('Speed') != Speed
 
@@ -32,7 +32,7 @@ Installing the built jar files:
 
 ## Requirements
 
-* ArcGIS GeoEvent Processor for Server.
+* ArcGIS GeoEvent Processor for Server 10.2.2.
 * ArcGIS GeoEvent Processor SDK.
 * Java JDK 1.7 or greater.
 * Maven.
