@@ -22,7 +22,7 @@ public enum ResultDestination
   
   public static ResultDestination fromString(String s) throws IllegalArgumentException
   {
-    String name = Validator.validate(s).trim();
+    String name = Validator.compactSpaces(s).trim();
     if (!name.isEmpty())
     {
       if ("Existing Field".equals(name))

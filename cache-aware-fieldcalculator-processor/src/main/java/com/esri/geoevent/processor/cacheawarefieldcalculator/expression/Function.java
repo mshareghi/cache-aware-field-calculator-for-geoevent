@@ -16,7 +16,7 @@ public abstract class Function
   protected Function(String name) throws InvalidFunctionException
   {
     this.argc = 1;
-    this.name = Validator.validate(name).trim();
+    this.name = Validator.compactSpaces(name).trim();
     if (this.name.isEmpty())
       throw new InvalidFunctionException("function name cannot be empty.");
     int firstChar = (int) name.charAt(0);
@@ -35,7 +35,7 @@ public abstract class Function
     if (argumentCount < 0)
       throw new InvalidFunctionException("function argument count cannot be negative number.");
     this.argc = argumentCount;
-    this.name = Validator.validate(name).trim();
+    this.name = Validator.compactSpaces(name).trim();
     if (this.name.isEmpty())
       throw new InvalidFunctionException("function name cannot be empty.");
     int firstChar = (int) name.charAt(0);

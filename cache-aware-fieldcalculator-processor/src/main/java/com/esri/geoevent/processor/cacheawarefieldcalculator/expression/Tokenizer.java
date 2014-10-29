@@ -160,7 +160,7 @@ public class Tokenizer
   
   private Object parseValue(String s)
   {
-    s = Validator.validate(s);
+    s = Validator.compactSpaces(s);
     if (s.startsWith("'") && s.endsWith("'"))
       return s;
     try
