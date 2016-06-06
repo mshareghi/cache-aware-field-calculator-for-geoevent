@@ -1,6 +1,6 @@
 # cache-aware-fieldcalculator-for-geoevent
 
-ArcGIS 10.3.x GeoEvent Extension Cache Aware Field Calculator Processor
+ArcGIS 10.4.x GeoEvent Extension Cache Aware Field Calculator Processor
 
 
 This custom processor is similar to the GeoEvent Field Calculator and can access an in-memory cache that stores previous GeoEvents for each track. 
@@ -34,7 +34,7 @@ Installing the built jar files:
 
 * ArcGIS GeoEvent Extension for Server.
 * ArcGIS GeoEvent Extension SDK.
-* Java JDK 1.7 or greater.
+* Java JDK 1.8 or greater.
 * Maven.
 
 ## Resources
