@@ -1,4 +1,4 @@
-# cache-aware-fieldcalculator-for-geoevent
+# cache-aware-field-calculator-for-geoevent
 
 ArcGIS 10.3.x GeoEvent Extension Cache Aware Field Calculator Processor
 
