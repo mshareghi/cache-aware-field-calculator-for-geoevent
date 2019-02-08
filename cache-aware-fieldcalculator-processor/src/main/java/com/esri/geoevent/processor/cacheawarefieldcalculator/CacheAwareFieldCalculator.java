@@ -64,6 +64,7 @@ import com.esri.ges.util.Validator;
 public class CacheAwareFieldCalculator extends CacheEnabledGeoEventProcessor implements ServiceTrackerCustomizer
 {
 	private static final BundleLogger	LOGGER		= BundleLoggerFactory.getLogger(CacheAwareFieldCalculator.class);
+
 	private static final DateFormat STANDARD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 	private Map<String, String>				edMapper	= new ConcurrentHashMap<String, String>();
