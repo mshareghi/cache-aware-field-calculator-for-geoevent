@@ -24,12 +24,17 @@
 
 package com.esri.geoevent.processor.cacheawarefieldcalculator;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.esri.geoevent.processor.cacheawarefieldcalculator.expression.Function;
+import com.esri.geoevent.processor.cacheawarefieldcalculator.expression.InvalidFunctionException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
@@ -59,6 +64,7 @@ import com.esri.ges.util.Validator;
 public class CacheAwareFieldCalculator extends CacheEnabledGeoEventProcessor implements ServiceTrackerCustomizer
 {
 	private static final BundleLogger	LOGGER		= BundleLoggerFactory.getLogger(CacheAwareFieldCalculator.class);
+	private static final DateFormat STANDARD_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
 	private Map<String, String>				edMapper	= new ConcurrentHashMap<String, String>();
 	private GeoEventDefinitionManager	geoEventDefinitionManager;
@@ -72,6 +78,41 @@ public class CacheAwareFieldCalculator extends CacheEnabledGeoEventProcessor imp
 	private String										geoEventDefinitionName;
 	private TagManager								tagManager;
 	private String										fieldTagName;
+
+	private static final Function PARSE_DATE_CUSTOM_FUNCTION;
+
+
+	static {
+		Function function;
+		try {
+			function = new Function("parseDate", 2)
+			{
+				@Override
+				public Object applyFunction(Object... args)
+				{
+					if(args != null && args.length == 2)
+					{
+						final String dateString = (String) args[0];
+
+						try {
+							final DateFormat dateFormat =
+								(args[1] == null || ((String)args[1]).isEmpty()) ?
+									STANDARD_DATE_FORMAT :
+									new SimpleDateFormat((String)args[1]);
+
+							return dateFormat.parse(dateString);
+						} catch (ParseException e) {
+							// ignore
+						}
+					}
+					return null;
+				}
+			};
+		} catch (InvalidFunctionException ignored) {
+			function = null;
+		}
+		PARSE_DATE_CUSTOM_FUNCTION = function;
+	}
 
 	protected CacheAwareFieldCalculator(GeoEventProcessorDefinition definition) throws ComponentException
 	{
@@ -109,7 +150,11 @@ public class CacheAwareFieldCalculator extends CacheEnabledGeoEventProcessor imp
 		FieldDefinition fd = (ResultDestination.EXISTING_FIELD.equals(resultDestination)) ? geoEvent.getGeoEventDefinition().getFieldDefinition(fieldName) : fieldDefinition;
 		if (fd != null)
 		{
-			Object result = new ExpressionBuilder(geoEvent, geoEventCache, expression).build().calculate();
+			final Object result = new ExpressionBuilder(geoEvent, geoEventCache, expression)
+				.withCustomFunction(PARSE_DATE_CUSTOM_FUNCTION)
+				.build()
+				.calculate();
+
 			switch (fd.getType())
 			{
 				case Date:
