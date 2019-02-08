@@ -1,7 +1,8 @@
 # cache-aware-field-calculator-for-geoevent
 
-ArcGIS GeoEvent Extension Cache Aware Field Calculator Processor
 
+
+##### ArcGIS GeoEvent Extension Cache Aware Field Calculator Processor
 
 This custom processor is similar to the GeoEvent Field Calculator and can access an in-memory cache that stores previous GeoEvents for each track. 
 For example, given the "Speed" field on the input GeoEvent Definition, one can compute the value of "IsMoving" field by comparing the current "Speed" value with the previous one using the syntax below:
@@ -15,6 +16,13 @@ The maximum number of tracks in the cache (default to 1000 tracks) is configurab
 com.esri.ges.manager.servicemanager.maxCacheSize=1000
 
 ![App](cache-aware-fieldcalculator-for-geoevent.png?raw=true)
+
+## Changes
+
+This fork contains the following function:
+
+`parseDate('<date_string>')` - Converts a string in the format `yyy-MM-dd` into a `Date` object.
+`parseDate('<date_string>', <dateFormat>')` - Converts a string to a date based on a custom format string.
 
 ## Features
 * Cache Aware Field Calculator Processor
