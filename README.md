@@ -21,8 +21,8 @@ com.esri.ges.manager.servicemanager.maxCacheSize=1000
 
 This fork contains the following function:
 
-`parseDate('<date_string>')` - Converts a string in the format `yyy-MM-dd` into a `Date` object.
-`parseDate('<date_string>', <dateFormat>')` - Converts a string to a date based on a custom format string.
+- `parseDate('<date_string>')` - Converts a 'String' in the format `yyyy-MM-dd` into a `Date` object.
+- `parseDate('<date_string>', <dateFormat>')` - Converts a 'String' input to a 'Date' based on a custom date format string.
 
 ## Features
 * Cache Aware Field Calculator Processor
